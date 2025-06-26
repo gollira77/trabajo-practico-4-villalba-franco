@@ -17,7 +17,7 @@ const validacionesCharacter = async (data, isUpdate = false, id=null) => {
     return errores;
 }
 
-export const getAllCharacters = async (res) => {
+export const getAllCharacters = async (req,res) => {
     try {
         const characters = await Character.findAll(); 
         res.json(characters);
@@ -38,7 +38,7 @@ export const getCharacterById = async (req, res) => {
 
 export const createCharacter = async (req, res) => {
     const errores = await validacionesCharacter(req.body);
-    if (errors.length) return res.status(400).json({ errores });
+    if (errores.length) return res.status(400).json({ errores });
 
     try {
         const newChar = await Character.create(req.body);
